@@ -33,12 +33,10 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1>Hello, I'm <span class="highlight">KOTCHAPORN</span></h1>
-            <p class="hero-subtitle">Full Stack Developer</p>
-            <p class="hero-description">I create beautiful and functional web applications</p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            <h1>Hello, I'm <span class="highlight">Your Name</span></h1>
+    <p class="hero-subtitle">
+    <span id="typing-text"></span>
+    <span class="cursor">|</span></p>
             </div>
         </div>
         <div class="hero-image">
@@ -116,46 +114,30 @@
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">My Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <img src="images/project1.jpg" alt="Project 1">
-                    <div class="project-info">
-                        <h3>Dirty Work</h3>
-                        <p>“Dirty Work” shows aespa as fearless agents in a cyber-noir world, tackling dangerous missions others avoid. It’s about strength, confidence, and resilience amid chaos.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small">Live Demo</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/project2.jpg" alt="Project 2">
-                    <div class="project-info">
-                        <h3>Dark Arts</h3>
-                        <p>“Dark Arts” blends mystery and power, portraying aespa navigating a tense, high-stakes battlefield with style and control, inspired by their PUBG Mobile collab.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small">Live Demo</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/project3.jpg" alt="Project 3">
-                    <div class="project-info">
-                        <h3>Whiplash</h3>
-                        <p>“Whiplash” is a bold, intense track about desire and control, with sharp visuals reflecting the rush and tension of temptation.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small">Live Demo</a>
-                            <a href="#" class="btn btn-small btn-secondary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="container">
+        <h2 class="section-title">My Projects</h2>
+        
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">Web Apps</button>
+            <button class="filter-btn" data-filter="mobile">Mobile</button>
+            <button class="filter-btn" data-filter="ui">UI/UX</button>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card" data-category="web">
+                <!-- Project content -->
+            </div>
+            <div class="project-card" data-category="mobile">
+                <!-- Project content -->
+            </div>
+            <div class="project-card" data-category="ui">
+                <!-- Project content -->
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -199,7 +181,9 @@
             </div>
         </div>
     </section>
-
+        <button class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+        </button>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
