@@ -33,9 +33,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        navbar.classList.add('scrolled');
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.classList.remove('scrolled');
     }
 });
 
@@ -58,91 +58,120 @@ contactForm.addEventListener('submit', (e) => {
         alert('Please fill in all fields.');
     }
 });
-// Dark Mode Toggle Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-icon');
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    
-    // ตั้งค่า theme เริ่มต้น
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
-    
-    // Event listener สำหรับการคลิก
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+// Project Filter System
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        button.classList.add('active');
         
-        // เปลี่ยน theme
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
+        const filterValue = button.getAttribute('data-filter');
         
-        // เพิ่ม animation effect
-        themeToggle.style.transform = 'rotate(360deg)';
-        setTimeout(() => {
-            themeToggle.style.transform = 'rotate(0deg)';
-        }, 300);
+        projectCards.forEach(card => {
+            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                card.classList.remove('hide');
+            } else {
+                card.classList.add('hide');
+            }
+        });
     });
+});
+
+// Typing Animation
+const typingText = document.getElementById('typing-text');
+const textArray = ['Full Stack Developer', 'React Specialist', 'Node.js Expert', 'UI/UX Enthusiast'];
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeWriter() {
+    const currentText = textArray[textIndex];
     
-    function updateThemeIcon(theme) {
-        themeToggle.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    if (!isDeleting) {
+        typingText.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+        
+        if (charIndex === currentText.length) {
+            isDeleting = true;
+            setTimeout(typeWriter, 2000);
+            return;
+        }
+    } else {
+        typingText.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+        
+        if (charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % textArray.length;
+        }
+    }
+    
+    setTimeout(typeWriter, isDeleting ? 50 : 150);
+}
+
+// Start typing animation
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(typeWriter, 1000);
+});
+
+// Back to Top Button
+const backToTopButton = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('show');
+    } else {
+        backToTopButton.classList.remove('show');
     }
 });
 
+backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Dark Mode Toggle
+const themeToggle = document.getElementById('theme-icon');
+const currentTheme = localStorage.getItem('theme') || 'light';
+
+document.documentElement.setAttribute('data-theme', currentTheme);
+updateThemeIcon(currentTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    themeToggle.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+}
+
 // Loading Animation
-window.addEventListener('load', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const loader = document.querySelector('.loader');
-    const progressBar = document.querySelector('.progress-fill');
-
-    let progress = 0;
-    const loadingInterval = setInterval(() => {
-        progress += 10;
-        progressBar.style.width = progress + '%';
-
-        if (progress >= 100) {
-            clearInterval(loadingInterval);
-            setTimeout(() => {
-                loader.classList.add('fade-out');
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }, 500);
-            }, 500);
-        }
-    }, 150);
+    loader.classList.add('fade-out');
+    setTimeout(() => {
+        loader.style.display = 'none';
+    }, 1000);
 });
 
 
 // Scroll Progress Indicator
-function updateScrollProgress() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollPercent = (scrollTop / scrollHeight) * 100;
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.body.offsetHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
     
-    const progressBar = document.querySelector('.progress-bar');
-    progressBar.style.width = scrollPercent + '%';
-    
-    // เพิ่ม effect เมื่อเลื่อนถึงจุดต่างๆ
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionBottom = sectionTop + section.offsetHeight;
-        
-        if (scrollTop >= sectionTop && scrollTop <= sectionBottom) {
-            // Highlight current section in navbar
-            const currentId = section.getAttribute('id');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentId}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
-    });
-}
-
-// Event listeners
-window.addEventListener('scroll', updateScrollProgress);
-window.addEventListener('resize', updateScrollProgress);
+    document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+});
