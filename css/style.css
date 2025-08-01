@@ -243,7 +243,7 @@ body {
 .octagon-frame {
   width: 250px;
   height: 250px;
-  background: #8b5cf6;
+  background: #5cc5f6;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -459,7 +459,7 @@ body {
 }
 
 .social-links a:hover {
-  background: #430f74;
+  background: #f09917;
 }
 
 /* Contact Form */
@@ -489,7 +489,7 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #430f74;
+  border-color: #f09917;
 }
 
 /* Footer */
@@ -622,7 +622,7 @@ body {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: #872af2;
+  background: #5cc5f6;
   color: white;
   border: none;
   border-radius: 50%;
